@@ -16,6 +16,18 @@ It helps the company to evaluate the applicants knowledge and skills in the tool
 You are given a ROS1 workspace that contains a ready to use setup for a car-like robot equibbed with a depth camera and a 3D LiDAR, placed in a virtual world within Gazebo Simulator.
 The target goal for this project, is to develop a minimal user controlled autonomous navigation functionality for the robot provided.
 
+## How To Run
+You need to Add the models used in the world file.<br>
+Run this command 
+~~~bash
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:{Add your package path}/self_driving_car_pkg/models
+~~~
+Run the following launch file
+~~~bash
+# Launch the Robot inside Gazebo World
+roslaunch mybot_pkg gazebo.launch
+~~~
+
 ## Milestones
 To achieve the desired goal, we break it down to smaller     to be achieved in order based on its debendency for the the next step.
 
