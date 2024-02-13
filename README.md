@@ -17,12 +17,20 @@ You are given a ROS1 workspace that contains a ready to use setup for a car-like
 The target goal for this project, is to develop a minimal user controlled autonomous navigation functionality for the robot provided.
 
 ## How To Run
-You need to Add the models used in the world file.<br>
-Run this command 
+- Add the models used in the world file:
 ~~~bash
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:{Add your workspace path}/src/mybot_pkg/models
 ~~~
-Run the following launch file
+
+- Check and install the corresponding dependencies:
+
+~~~bash
+# Available in RSE_ws
+./install.sh
+~~~
+
+
+- Launch the robot inside Gazebo:
 ~~~bash
 # Launch the Robot inside Gazebo World
 roslaunch mybot_pkg gazebo.launch
