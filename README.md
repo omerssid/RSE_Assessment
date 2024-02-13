@@ -12,6 +12,11 @@ It helps the company to evaluate the applicants knowledge and skills in the tool
 - GUI development
 - Software Integration
 
+## Guide and Tips
+- Fork the repo to your account, and reply to the email with your repo fork that contains the soloutions once you finish (any reply after two weeks of the email wil not be considered).</br>
+- try to utilize known/open-source tools as possible.</br>
+- Edit the README.md file in your fork, and add the steps and exxplination of your solution for each milestone.
+
 ## Project Overview
 You are given a ROS1 workspace that contains a ready to use setup for a car-like robot equibbed with a depth camera and a 3D LiDAR, placed in a virtual world within Gazebo Simulator.
 The target goal for this project, is to develop a minimal user controlled autonomous navigation functionality for the robot provided.
@@ -65,10 +70,6 @@ Develop the previous milestone and adopt it so the user of your GUI can also per
 The very first required components to start working on any autonomous functionality are the position, orientation, velocity feedback of the robot.</br>
 If we ignore the Odometry feedback provided by Gazebo, based on the robot description provided and the sensor set, develop a node that produce an Odometry feedback as accurate as possible.
 
-## Guide and Tips
-- Fork the repo to your account, and reply to the email with your repo fork that contains the soloutions once you finish (any reply after two weeks of the email wil not be considered).</br>
-- try to utilize known/open-source tools as possible.</br>
-- Edit the README.md file in your fork, and add the steps and exxplination of your solution for each milestone.
 
 
 ```bash
