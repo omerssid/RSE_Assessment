@@ -20,7 +20,7 @@ The target goal for this project, is to develop a minimal user controlled autono
 You need to Add the models used in the world file.<br>
 Run this command 
 ~~~bash
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:{Add your package path}/self_driving_car_pkg/models
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:{Add your workspace path}/src/mybot_pkg/models
 ~~~
 Run the following launch file
 ~~~bash
