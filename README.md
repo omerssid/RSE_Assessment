@@ -13,7 +13,7 @@ It helps the company to evaluate the applicants knowledge and skills in the tool
 - Software Integration
 
 ## Guide and Tips
-- Fork the repo to your account, and reply to the email with your repo fork that contains the soloutions once you finish (any reply after two weeks of the email wil not be considered).</br>
+- Fork the repo to your account, and reply to the email with your repo fork that contains the soloutions once you finish **(Any reply after two weeks of the email wil not be accepted!!!)**.</br>
 - Try to utilize known/open-source tools as possible.</br>
 - Edit the README.md file in your fork, and add the steps and exxplination of your solution for each milestone.
 
