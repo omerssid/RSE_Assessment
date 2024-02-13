@@ -139,7 +139,7 @@
   </xacro:rear_wheel_lr>
 
   <!-- Velodyne -->
-  <xacro:HDL-32E parent="base_link" name="velodyne2" topic="/steer_bot/velodyne_points2" hz="10"
+  <xacro:HDL-32E parent="base_link" name="velodyne2" topic="/velodyne_points2" hz="100"
     samples="220" gpu="false">
     <origin xyz="${base_length/2 -0.01} 0 0.1" rpy="0 0 0" />
   </xacro:HDL-32E>

@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <launch>
-
-    <param name="robot_description" command="$(find xacro)/xacro $(find mybot_pkg)/urdf/M2_Robot_V2.urdf.xacro"/>
+    <arg name="model" default="$(find mybot_pkg)/urdf/my_bot.urdf"/>
     <arg name="rviz_config_file" default="$(find mybot_pkg)/config/robot_config.rviz"/>
 
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
-    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>
+    <param name="robot_description" command="xacro $(arg model)"/>
+    
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
     
 </launch>
