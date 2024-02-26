@@ -7,12 +7,21 @@ project(mybot_pkg)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
+# find_package(gazebo REQUIRED)
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  gazebo_plugins
+  gazebo_ros
   velodyne_description
   velodyne_gazebo_plugins
   realsense2_description
+  rtabmap_ros
+  std_msgs
+  move_base_msgs
+  geometry_msgs
+  actionlib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,7 +116,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES mybot_pkg
-#  CATKIN_DEPENDS roscpp rospy
+#  CATKIN_DEPENDS roscpp rospy gazebo_ros velodyne_gazebo_plugins
 #  DEPENDS system_lib
 )
 
@@ -117,10 +126,13 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+# SET(velodyne_gazebo_plugins_DIR "/home/omar/RSE_Assessment/RSE_ws/src/velodyne_simulator/velodyne_gazebo_plugins")
 include_directories(
-# include
+  # include /home/omar/RSE_Assessment/RSE_ws/src/velodyne_simulator/velodyne_gazebo_plugins
+  # ${velodyne_gazebo_plugins_DIR}
   ${catkin_INCLUDE_DIRS}
 )
+
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}

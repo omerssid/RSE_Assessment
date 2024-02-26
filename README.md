@@ -3,25 +3,16 @@
 This is task defined project to asses the new hirings for Robotics Software Engineer
 It helps the company to evaluate the applicants knowledge and skills in the tools and frameworks used in the department.
 
-## Areas Covered By This Test
-- Implementation and coding skills
-- C++ and Python profcincy
-- Robot Operation Systems (ROS)
-- Robotics Fundementals
-- Autonomous Navigation Fundementals
-- GUI development
-- Software Integration
-
-## Guide and Tips
-- Fork the repo to your account, and reply to the email with your repo fork that contains the soloutions once you finish **(Any reply after two weeks of the email wil not be accepted!!!)**.</br>
-- Try to utilize known/open-source tools as possible.</br>
-- Edit the README.md file in your fork, and add the steps and exxplination of your solution for each milestone.
-
 ## Project Overview
 You are given a ROS1 workspace that contains a ready to use setup for a car-like robot equibbed with a depth camera and a 3D LiDAR, placed in a virtual world within Gazebo Simulator.
 The target goal for this project, is to develop a minimal user controlled autonomous navigation functionality for the robot provided.
 
 ## How To Run
+- Install dependencies:
+```
+sudo apt-get install ros-melodic-velodyne-simulator
+sudo apt-get install ros-melodic-ros-control*  ros-melodic-gazebo ros-melodic-slam-gmapping ros-melodic-move-base ros-melodic-navigation
+```
 - Add the models used in the world file:
 ~~~bash
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:{Add your workspace path}/src/mybot_pkg/models
@@ -46,16 +37,50 @@ To achieve the desired goal, we break it down to smaller     to be achieved in o
 
 
 ### 1 - Preform a SLAM on the provided world
-First, you need to map the robot world so it can understand it for later operations. </br>
-Utilize your knowledge of SLAM algorithms to produce a digital map of the world.
+First, we need to construct a map of the environment to use it later for offline localization. To do this we have many options and SLAM algorithms to choose from. However, we need to decide based on our environment and sensor configuration. At first, since we have a 3D LIDAR we could use LIDAR-based approaches like Slam_toolbox and Gmapping. The issue with using these methods is first we are not taking advantage of the depth camera on the robot, and since we do not have a reliable source of odometry aside from Gazebo, we will have huge map drifts and inconsistices through out the SLAM process. That is why I decided to use RTAB-MAP. In short, RTAB-Map's real-time capabilities, compatibility with 3D sensor data, effective loop closure detection, user-friendly configuration, and integration with ROS collectively makes it an ideal solution for mapping and navigation for a robot that's equipped with a depth camera and a 3D LiDAR. 
+ 
+
+But before working with Rtabmap, we have to change the width of the depth image to be equal or smaller than the color image! [reference issue](https://github.com/introlab/rtabmap/issues/753). 
+```
+  <!-- RSE_ws/src/realsense2_description/urdf/_d435.gazebo.xacro -->
+<image>
+    <width>640</width>
+    <height>480</height>
+</image
+```
+We also need to generate a laserscan to use for ICP odometry to get better results in RTAB-MAP. We can do this using the `pointcloud-to-laserscan` package
+```
+sudo apt-get install ros-melodic-pointcloud-to-laserscan
+``` 
+
+- Now we can launch the `mybot_slam.launch` file
+```
+roslaunch mybot_pkg mybot_slam.launch
+```
+- Move the robot around manually 
+```
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py /cmd_vel:=steer_bot/ackermann_steering_controller/cmd_vel
+```
+- save the map (or you can just use the Rtabmap DB file)
+```
+rosrun map_server map_saver map:=/rtabmap/grid_map -f my_map
+```
 
 ### 2 - Offline Localization
-Next, to move the robot autonomously around the map you need to localize the robot in real-time without using SLAM (offline localization).</br>
-Implement/Use a localization algorithm to localize the robot in the map, and test that your localization is working by movibg the robot manyually arround the map and validate the localization output.
+Next, to move the robot autonomously around the map we need to localize the robot in real-time without using SLAM (offline localization).</br>
+To do this 
+
 
 ### 3 - Autonomous Navigation with Obstacle avoidance
 Once you have a represntation of the environment and you can localize your robot within it, you can then start the autonomous navigation of the robot.</br>
 Implement/Use an autonomous navigation algorithm to drive the robot by itself to a defined goal that can be set in the RViz GUI, while avoiding any obstacle.
+- setup move_base
+```
+```
+- setup Navigation Stack with a car-like robot using TEB controller
+```
+sudo apt install ros-melodic-teb-local-planner
+```
 
 ### 4 - External GUI Teleoperation
 To make sure a smother operation of the robot when deploying it in the field, it's better to have a user friendly remote operation capabilties.</br>
@@ -73,5 +98,5 @@ If we ignore the Odometry feedback provided by Gazebo, based on the robot descri
 
 
 ```
-Thank You!
+THANK YOU!
 ```
