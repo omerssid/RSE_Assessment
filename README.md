@@ -72,10 +72,6 @@ If we ignore the Odometry feedback provided by Gazebo, based on the robot descri
 
 
 
-```bash
-GOOD LUCK!
 ```
-￼
-Collapse
-
-has context menu
+Thank You!
+```
