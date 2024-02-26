@@ -13,6 +13,7 @@
   <arg     if="$(arg localization)" name="rtabmap_args"  default=""/>
   <arg unless="$(arg localization)" name="rtabmap_args"  default="--delete_db_on_start"/>
   <arg name="odom_topic"              default="/steer_bot/ackermann_steering_controller/odom"/>
+  <arg name="database_path" default="$(find mybot_pkg)/maps/rtabmap.db"/>
 
   <group ns="rtabmap">
     <!-- SLAM (robot side) -->
@@ -67,6 +68,7 @@
 	  <param     if="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="false"/>
 	  <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
 	  <param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
+	  <param  if="$(arg localization)" name="database_path" type="string" value="$(arg database_path)"/>
    </node>
 
     <!-- Visualisation RTAB-Map -->

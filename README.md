@@ -68,8 +68,23 @@ rosrun map_server map_saver map:=/rtabmap/grid_map -f my_map
 
 ### 2 - Offline Localization
 Next, to move the robot autonomously around the map we need to localize the robot in real-time without using SLAM (offline localization).</br>
-To do this 
 
+To do this, offline localization is implemented using RTAB-Map. But first, let's delve into why RTAB-Map is chosen for offline localization over AMCL. Offline localization using RTAB-Map involves loading a pre-existing map generated during the mapping phase. The robot then uses this map to determine its current position without actively exploring the environment.
+
+Choosing RTAB-Map for offline localization brings several advantages. Firstly, RTAB-Map provides a flexible and efficient way to use pre-existing maps for localization. It handles loop closure detection well, which means it can recognize and correct for errors that might occur during mapping. This capability enhances the accuracy and reliability of robot localization, especially in complex environments.
+
+Comparatively, while AMCL is a powerful online localization algorithm, it might not be the optimal choice for scenarios where a pre-existing map is available. AMCL typically relies on the robot's motion and sensor data to estimate its pose in real-time. In offline scenarios, where the robot is not actively moving, AMCL may not perform as effectively as RTAB-Map.
+
+Nevertheless, I have included files for localization using both AMCL and RTAB-MAP but after several tests I decided to continue with RTAB-MAP for this step.  
+
+- launch the `mybot_slam.launch` file with localization enabled
+```
+roslaunch mybot_pkg mybot_slam.launch
+```
+- You can also do offline localization uing AMCL
+```
+roslaunch mybot_pkg amcl_loc.launch
+```
 
 ### 3 - Autonomous Navigation with Obstacle avoidance
 Once you have a represntation of the environment and you can localize your robot within it, you can then start the autonomous navigation of the robot.</br>
