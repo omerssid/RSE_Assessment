@@ -101,13 +101,22 @@ You can then access it from the browser
 ```
 http://localhost:5000
 ```
-![teleop_gui](RSE_ws/media/gui.png)
 
 
+### (Optional) - Develop an Odometry Source for the robot
+To develop an odometry system without using the odometry published from Gazebo we have tp take into considerations the sensors we have in our system. SInce we don't have an IMU or wheel encoder we need to rely on the data coming from the 3D LIDAR and Depth camera sensors. With this in mind, here are two possible ways to develop a more advanced odometry system for our robot.
+
+#### ICP Odometry with Visual Odometry Initialization in ROS
+> File `RSE_ws/src/mybot_pkg/launch/optional_odom_rgbdicp.launch`
 
 
+This ROS launch file configures an odometry system utilizing Iterative Closest Point (ICP) algorithm with Visual Odometry (VO) initialization. The system uses sensor data from the depth camera mounted on the robot to perform real-time odometry estimation.
+
+#### Fused odometry using Extended Kalman Filter
+> File `RSE_ws/src/mybot_pkg/launch/optional_odom_ekf.launch`
 
 
+In this approach we configure a robot localization system using an Extended Kalman Filter (EKF) through the robot_localization package. The system integrates odometry and pose data coming from RTAB-MAP to estimate the robot's state, providing a fused and more accurate localization solution.
 
 ```
 THANK YOU!
