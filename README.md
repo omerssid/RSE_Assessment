@@ -71,16 +71,13 @@ roslaunch mybot_pkg amcl_loc.launch
 ```
 
 ### 3 - Autonomous Navigation with Obstacle avoidance
-Once you have a represntation of the environment and you can localize your robot within it, you can then start the autonomous navigation of the robot.</br>
-Implement/Use an autonomous navigation algorithm to drive the robot by itself to a defined goal that can be set in the RViz GUI, while avoiding any obstacle.
-
-FOr the local planner, since we have a car-like robot usinf ackerman control we can't use the defaulr planner used for differential robots. Instead, we need to insall and setup the TEB controller which unlike other controllers, cand send velocities and anlges which is what we need here
+For the local planner, since we have a car-like robot using ackermann controller we can't use the default planner used for differential robots in Navigation Stack. Instead, we need to insall and setup the TEB controller which unlike other controllers, can send velocities and angles which is what we need here
 ```
 sudo apt install ros-melodic-teb-local-planner
 ```
-After installing it we can use it in the `teb_local_planner_params.yaml` file.</br>
+After installing it we can configure the navigation stack to use it in the `teb_local_planner_params.yaml` file.</br>
 
-- Now to use autonomous navigation you can choose either rtabmap or amcl for loc you just need to change the map topic in the `common_costmap_params.yaml` file. After that you can just run the Navigation Stack using the move_base file
+- Now to use autonomous navigation you can choose either rtabmap or amcl for localization. To do so, you just need to change the map topic in the `common_costmap_params.yaml` file. After that you can just run the Navigation Stack using the move_base file
 ```
 roslaunch mybot_pkg move_base.launch
 ```
