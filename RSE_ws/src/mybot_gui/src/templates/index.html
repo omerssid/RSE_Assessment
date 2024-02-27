@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Control GUI</title>
+
+    <style>
+        form {
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            height: 100vh;
+            margin: 0;
+        }
+
+        input {
+            grid-row: 2; /* Center row */
+            grid-column: 2; /* Center column */
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #leftBtn {
+            grid-column: 1; /* Left column */
+        }
+
+        #rightBtn {
+            grid-column: 3; /* Right column */
+        }
+
+        #forwardBtn {
+            grid-row: 1; /* Top row */
+        }
+
+        #backwardBtn {
+            grid-row: 3; /* Bottom row */
+        }
+    </style>
+</head>
+<body>
+
+<h1 style="grid-column: 1 / -1; text-align: center;">Robot Control Interface</h1>
+
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<!-- Input elements for robot control -->
+<form action="/control" method="post" target="dummyframe">
+    <input type="submit" name="direction" id="leftBtn" value="Left">
+    <input type="submit" name="direction" id="rightBtn" value="Right">
+    <input type="submit" name="direction" id="forwardBtn" value="Forward">
+    <input type="submit" name="direction" id="backwardBtn" value="Backward">
+</form>
+
+
+</body>
+</html>

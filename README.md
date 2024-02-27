@@ -4,37 +4,25 @@ This is task defined project to asses the new hirings for Robotics Software Engi
 It helps the company to evaluate the applicants knowledge and skills in the tools and frameworks used in the department.
 
 ## Project Overview
-You are given a ROS1 workspace that contains a ready to use setup for a car-like robot equibbed with a depth camera and a 3D LiDAR, placed in a virtual world within Gazebo Simulator.
-The target goal for this project, is to develop a minimal user controlled autonomous navigation functionality for the robot provided.
+wewewe
 
-## How To Run
-- Install dependencies:
+1. Mapping
+2. Offline Localization
+3. Autonomous Navigation 
+4. GUI Teleoperation
+
+## Setup
+- Install general dependencies:
 ```
-sudo apt-get install ros-melodic-velodyne-simulator
-sudo apt-get install ros-melodic-ros-control*  ros-melodic-gazebo ros-melodic-slam-gmapping ros-melodic-move-base ros-melodic-navigation
+sudo apt-get install ros-melodic-ros-control  ros-melodic-gazebo ros-melodic-move-base ros-melodic-navigation
 ```
-- Add the models used in the world file:
-~~~bash
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:{Add your workspace path}/src/mybot_pkg/models
-~~~
-
-- Check and install the corresponding dependencies:
-
-~~~bash
-# Available in RSE_ws
-./install.sh
-~~~
-
-
-- Launch the robot inside Gazebo:
-~~~bash
-# Launch the Robot inside Gazebo World
-roslaunch mybot_pkg gazebo.launch
-~~~
+- Install laserscan-to-pointcloud package to convert 3D LIDAR data to 2D laserscans
+```
+sudo apt-get install ros-melodic-pointcloud-to-laserscan
+```
 
 ## Milestones
-To achieve the desired goal, we break it down to smaller     to be achieved in order based on its debendency for the the next step.
-
+Most of the milestone files are stored in the package `mybot_pkg`. 
 
 ### 1 - Preform a SLAM on the provided world
 First, we need to construct a map of the environment to use it later for offline localization. To do this we have many options and SLAM algorithms to choose from. However, we need to decide based on our environment and sensor configuration. At first, since we have a 3D LIDAR we could use LIDAR-based approaches like Slam_toolbox and Gmapping. The issue with using these methods is first we are not taking advantage of the depth camera on the robot, and since we do not have a reliable source of odometry aside from Gazebo, we will have huge map drifts and inconsistices through out the SLAM process. That is why I decided to use RTAB-MAP. In short, RTAB-Map's real-time capabilities, compatibility with 3D sensor data, effective loop closure detection, user-friendly configuration, and integration with ROS collectively makes it an ideal solution for mapping and navigation for a robot that's equipped with a depth camera and a 3D LiDAR. 
@@ -100,19 +88,24 @@ After installing it we can use it in the `teb_local_planner_params.yaml` file.</
 ```
 roslaunch mybot_pkg move_base.launch
 ```
+![third_step_navigation](RSE_ws/media/nav.png)
 
 ### 4 - External GUI Teleoperation
-To make sure a smother operation of the robot when deploying it in the field, it's better to have a user friendly remote operation capabilties.</br>
-Develop a GUI that allows use to remotly control the robot from outside a ROS environment.
-Feel free to pick whatever framework or stack you like (C++ Qt, Python, Web-based GUI, etc...).
-**NOTE:** Implement only the basic functionality (Drive, Steer).
+For this step, I developed a web-based Graphical User Interface (GUI) using Flask for remotely controlling a robot within a ROS environment. The Flask application (`app.py`) served as the web server, defining routes for the main page and the control form. ROS functionalities were integrated into the Flask application, establishing a ROS node and publishers for transmitting drive and steer commands to the robot. The HTML template (`index.html`) provided a user-friendly interface, enabling users to input drive and steer values. The entire task was structured within a ROS package, adhering to the typical ROS package structure. This setup facilitates the remote control of the robot through a web browser, making it accessible and user-friendly for operators interacting with the robot system.
 
-### 5 - User Defined Navigation (Open)
-Develop the previous milestone and adopt it so the user of your GUI can also perform the Navigation functionality (Sendg Waypoints/Goal, Mapping, etc...).
+You can run this using the command
+```
+python3 <path_to_ROS_workspace>/src/mybot_gui/src/teleop_app.py
+```
+You can then access it from the browser
+```
+http://localhost:5000
+```
+![teleop_gui](RSE_ws/media/gui.png)
 
-### (Optional) - Develop an Odometry Source for the robot
-The very first required components to start working on any autonomous functionality are the position, orientation, velocity feedback of the robot.</br>
-If we ignore the Odometry feedback provided by Gazebo, based on the robot description provided and the sensor set, develop a node that produce an Odometry feedback as accurate as possible.
+
+
+
 
 
 
