@@ -1,10 +1,6 @@
 # Micropolis Robotics - Robotics Software Engineer Technical Assesment
 
-This is task defined project to asses the new hirings for Robotics Software Engineer
-It helps the company to evaluate the applicants knowledge and skills in the tools and frameworks used in the department.
-
 ## Project Overview
-wewewe
 
 1. Mapping
 2. Offline Localization
